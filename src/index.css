@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-serif: 'Fraunces', ui-serif, Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ivory: #fff7fb;
+  --color-cream: #ffeaf2;
+  --color-blush: #ffd7e6;
+  --color-babypink: #ffc2d8;
+  --color-rose: #e79ab4;
+  --color-dusty: #c76d90;
+  --color-burgundy: #8a2f52;
+  --color-burgundy-deep: #5c1b38;
+  --color-gold: #d8b06a;
+  --color-ink: #5a3b47;
+}
+
+:root {
+  --background: #fff7fb;
+  --foreground: #5a3b47;
+  --paper: #fffdfe;
+}
+
+* {
+  border-color: color-mix(in oklab, var(--color-rose) 22%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  background: linear-gradient(
+    155deg,
+    #ffffff 0%,
+    #fff2f7 22%,
+    #ffdcea 48%,
+    #ffc9dc 68%,
+    #fff2f7 88%,
+    #ffffff 100%
+  );
+  background-size: 100% 300%;
+  background-attachment: fixed;
+  animation: bgDrift 26s ease-in-out infinite alternate;
+}
+
+@keyframes bgDrift {
+  0% { background-position: 50% 0%; }
+  100% { background-position: 50% 100%; }
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-rose) 45%, transparent);
+  color: var(--color-burgundy-deep);
+}
+
+/* Hidden-until-scroll scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+*:hover {
+  scrollbar-color: color-mix(in oklab, var(--color-rose) 40%, transparent) transparent;
+}
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 9px;
+}
+body:hover ::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-rose) 40%, transparent);
+}
+
+/* --- Reveal on scroll --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  body,
+  .float-particle, .glow-pulse, .candle, .shimmer, .sway, .twinkle, .heart-beat, .heart-core, .trace-letter {
+    animation: none !important;
+  }
+  .trace-letter { opacity: 1; }
+}
+
+/* --- Animations --- */
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  10% { opacity: var(--o, 0.6); }
+  90% { opacity: var(--o, 0.6); }
+  100% { transform: translateY(-120vh) scale(1.1); opacity: 0; }
+}
+.float-particle {
+  animation: floatUp linear infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.14); opacity: 1; }
+}
+.glow-pulse {
+  animation: heartPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes candleFlicker {
+  0%, 100% { opacity: 0.65; transform: scale(1); }
+  40% { opacity: 0.85; transform: scale(1.05); }
+  70% { opacity: 0.55; transform: scale(0.97); }
+}
+.candle {
+  animation: candleFlicker 4s ease-in-out infinite;
+}
+
+/* Shimmering gold/rose sweep across display text */
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+.shimmer {
+  background: linear-gradient(
+    100deg,
+    var(--color-burgundy) 30%,
+    var(--color-gold) 48%,
+    var(--color-dusty) 56%,
+    var(--color-burgundy) 74%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-6deg) scale(1); }
+  50% { transform: rotate(6deg) scale(1.08); }
+}
+.sway { animation: sway 3.4s ease-in-out infinite; display: inline-block; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+.twinkle { animation: twinkle 3s ease-in-out infinite; }
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.22); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.16); }
+  60% { transform: scale(1); }
+}
+.heart-beat { display: inline-block; animation: heartBeat 2.2s ease-in-out infinite; }
+
+/* Heart traced letter-by-letter — each letter appears in turn, holds, fades */
+@keyframes letterTrace {
+  0% { opacity: 0; transform: scale(0.2); }
+  4% { opacity: 1; transform: scale(1.25); }
+  9% { transform: scale(1); }
+  82% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.75); }
+}
+.trace-letter {
+  opacity: 0;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px #fff, 0 0 14px #ff8fc0, 0 0 26px #ff5fa8, 0 0 44px rgba(255, 95, 168, 0.55);
+  animation-name: letterTrace;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+/* Soft glowing core behind the word-heart */
+@keyframes coreGlow {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.12); }
+}
+.heart-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 45%;
+  height: 45%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255,143,192,0.75) 0%, rgba(255,95,168,0.25) 45%, transparent 70%);
+  filter: blur(22px);
+  animation: coreGlow 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.glass {
+  background: color-mix(in oklab, var(--paper) 70%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
