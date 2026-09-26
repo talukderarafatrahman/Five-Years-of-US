@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import AnniversaryPage from './Anniversary'
 import {
   Reveal,
   Label,
@@ -14,7 +15,7 @@ import aruImage from './Components/image/img4.png'
 import monaImage from './Components/image/img3.png'
 import hereImage from './Components/image/img6.jpg'
 import thereImage from './Components/image/img5.png'
-import homeVideo from './Components/image/video1.mp4'
+import homeImage from './Components/image/img11.png'
 
 /* ---------- Data ---------- */
 const NAV = [
@@ -442,6 +443,15 @@ function CommentBox() {
 export default function App() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
   const [selectedImage, setSelectedImage] = useState<{ src: string; caption?: string } | null>(null)
+  const [showAnniversary, setShowAnniversary] = useState(window.location.hash === '#anniversary')
+
+  useEffect(() => {
+    const syncPage = () => setShowAnniversary(window.location.hash === '#anniversary')
+    window.addEventListener('hashchange', syncPage)
+    return () => window.removeEventListener('hashchange', syncPage)
+  }, [])
+
+  if (showAnniversary) return <AnniversaryPage />
 
   return (
     <div id="top" className="relative bg-ivory text-ink">
@@ -518,11 +528,11 @@ export default function App() {
             </Reveal>
           </div>
           <Reveal delay={300} className="relative">
-            <div className="absolute -inset-6 rounded-[2rem] bg-gold/10 blur-2xl" />
             <Photo
-              videoSrc={homeVideo}
-              caption="Where our forever began. 🤍"
-              className="relative aspect-video"
+              src={homeImage}
+              caption="A favorite memory together. 🤍"
+              fit="cover"
+              className="relative aspect-[4/5]"
             />
           </Reveal>
         </div>
@@ -768,6 +778,9 @@ export default function App() {
           <p className="mx-auto mt-3 text-sm text-dusty/70">
             Every image from our memory collection, gathered in one place. 🌸
           </p>
+          <div className="mt-7">
+            <PrimaryButton href="./index.html#anniversary">Open Anniversary Gallery →</PrimaryButton>
+          </div>
         </Reveal>
         <div className="grid auto-rows-[180px] grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:auto-rows-[200px] md:grid-cols-4 lg:grid-cols-5 lg:auto-rows-[220px]">
           {GALLERY.map((g, i) => (
