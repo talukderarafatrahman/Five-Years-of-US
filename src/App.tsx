@@ -408,7 +408,7 @@ function CommentBox() {
             value={email}
             readOnly
             aria-describedby="comment-email-help"
-            className="mt-2 w-full rounded-xl border border-rose/30 bg-ivory px-4 py-3 text-ink outline-none transition focus:border-burgundy focus:ring-2 focus:ring-rose/20"
+            className="mt-2 w-full rounded-xl border border-rose/30 bg-ivory px-4 py-3 text-ink blur-[6px] outline-none transition focus:border-burgundy focus:ring-2 focus:ring-rose/20"
             required
           />
           <p id="comment-email-help" className="mt-2 text-xs text-dusty/75">
